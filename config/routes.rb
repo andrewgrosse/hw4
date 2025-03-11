@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
-  get("/", { :controller => "places", :action => "index" })
-  resources "entries"
-  resources "places"
-  resources "sessions"
-  resources "users"
+  get "/", to: "places#index"
 
-  #login and logout routes
-  get "/login" => "sessions#new"
-  post "/login" => "sessions#create"
-  delete "/logout" => "sessions#destroy"
+  resources :users, only: [:new, :create]
+  resources :sessions, only: [:new, :create, :destroy]
+  
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
 end

@@ -1,5 +1,3 @@
-require 'digest' #hashing passwords manually
-
 class SessionsController < ApplicationController
   def new
   end
@@ -7,8 +5,7 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:email])
 
-    #check if user exists and password is correct
-    if user && user["password"] ==Digest::SHA256.hexigest(params[:password])
+    if user && user.authenticate(params[:password])  # Bcrypt authenticates password
       session[:user_id] = user.id
       redirect_to "/places"
     else
@@ -22,4 +19,3 @@ class SessionsController < ApplicationController
     redirect_to "/login"
   end
 end
-  

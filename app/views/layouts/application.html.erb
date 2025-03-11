@@ -16,7 +16,7 @@
     
     <div>
       <a href="/">Home</a>
-      <% if sesion[:user_id] %>
+      <% if session[:user_id] %>
        <!-- Show this when the user is logged in -->
         <p>Welcome, <%= User.find(session[:user_id]).first_name %>!</p>
       <a href="/logout">Logout</a>

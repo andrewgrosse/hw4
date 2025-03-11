@@ -2,7 +2,7 @@ class PlacesController < ApplicationController
 
   def index
       if session[:user_id]
-        @places = Place.where){"user_id" => session[:user_id]}) # Only show logged-in user's places
+        @places = Place.where({"user_id" => session[:user_id]}) # Only show logged-in user's places
       else
         @places = []
         flash["notice"] = "Please log in to see your places."
