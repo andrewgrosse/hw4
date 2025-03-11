@@ -13,11 +13,18 @@
     <div>
       <%= flash["notice"] %>
     </div>
+    
     <div>
       <a href="/">Home</a>
+      <% if sesion[:user_id] %>
+       <!-- Show this when the user is logged in -->
+        <p>Welcome, <%= User.find(session[:user_id]).first_name %>!</p>
       <a href="/logout">Logout</a>
+     <% else %>
+        <!-- Show this when the user is NOT logged in -->
       <a href="/login">Login</a>
       <a href="/users/new">Signup</a>
+    <% end %>
     </div>
 
     <%= yield %>
