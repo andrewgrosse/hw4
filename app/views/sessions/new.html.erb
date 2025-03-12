@@ -1,9 +1,17 @@
 <h2>Login</h2>
 
 <%= form_with url: "/login", local: true do |form| %>
-  <p><%= form.label :email %> <%= form.email_field :email %></p>
-  <p><%= form.label :password %> <%= form.password_field :password %></p>
-  <p><%= form.submit "Login" %></p>
-<% end %>
+  <p>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </p>
 
-<p>Don't have an account? <%= link_to "Sign up", "/users/new" %></p>
+  <p>
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </p>
+
+  <p>
+    <%= form.submit "Log in" %>
+  </p>
+<% end %>

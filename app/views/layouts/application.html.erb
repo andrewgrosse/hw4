@@ -1,35 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tacostagram Final</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Tacostagram</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
     <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
-
-
-    <link rel="stylesheet" href="/stylesheets/application.css">
+    <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
   </head>
 
   <body>
     <div>
       <%= flash["notice"] %>
     </div>
-    
-    <div>
+
+    <nav>
       <a href="/">Home</a>
+
       <% if session[:user_id] %>
-       <!-- Show this when the user is logged in -->
-        <p>Welcome, <%= User.find(session[:user_id]).first_name || "User" %>!</p>
-      <%= link_to "Logout", "/logout", method: :delete, data: { turbo_method: :delete } %>
-
-
-     <% else %>
-        <!-- Show this when the user is NOT logged in -->
-      <a href="/login">Login</a>
-      <a href="/users/new">Signup</a>
-    <% end %>
-    </div>
+        <p>Welcome, <%= User.find_by(id: session[:user_id])&.first_name || "User" %>!</p>
+        <%= button_to "Logout", "/logout", method: :delete, data: { confirm: "Are you sure?" } %>
+      <% else %>
+        <a href="/login">Login</a>
+        <a href="/users/new">Signup</a>
+      <% end %>
+    </nav>
 
     <%= yield %>
   </body>
