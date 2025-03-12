@@ -1,16 +1,21 @@
-<h1><%= @place["name"] %></h1>
+<% if @place %>
+  <h1><%= @place.name %></h1>
 
-<h2>My Entries</h2>
-<% for entry in @entries %>
-  <h3><%= entry["title"] %></h3>
-  <h4><%= entry["occurred_on"] %></h4>
-  <p><%= entry["description"] %></p>
-<% end %>
+  <h2>My Entries</h2>
+  <% @entries.each do |entry| %>
+    <h3><%= entry.title %></h3>
+    <h4><%= entry.occurred_on %></h4>
+    <p><%= entry.description %></p>
+  <% end %>
 
-<p>
-  <a href="/entries/new?place_id=<%= @place["id"] %>">New Entry</a>
-</p>
+  <p>
+    <a href="/entries/new?place_id=<%= @place.id %>">New Entry</a>
+  </p>
 
-<p>
+  <p>
+    <a href="/places">Back to All Places</a>
+  </p>
+<% else %>
+  <p>Error: This place does not exist or you do not have access.</p>
   <a href="/places">Back to All Places</a>
-</p>
+<% end %>
