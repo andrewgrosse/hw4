@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+
 
     <link rel="stylesheet" href="/stylesheets/application.css">
   </head>
@@ -19,7 +21,9 @@
       <% if session[:user_id] %>
        <!-- Show this when the user is logged in -->
         <p>Welcome, <%= User.find(session[:user_id]).first_name || "User" %>!</p>
-      <a href="/logout">Logout</a>
+      <%= link_to "Logout", "/logout", method: :delete, data: { turbo_method: :delete } %>
+
+
      <% else %>
         <!-- Show this when the user is NOT logged in -->
       <a href="/login">Login</a>

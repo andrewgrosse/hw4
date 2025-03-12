@@ -12,6 +12,14 @@ class SessionsController < ApplicationController
       flash["notice"] = "Invalid email or password"
       redirect_to "/login"
     end
+
+    def destroy
+     session[:user_id] = nil  # ✅ Log out user
+     flash["notice"] = "Logged out successfully."
+      redirect_to "/login"
+     end
+   end
+    
   end
 
 
