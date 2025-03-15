@@ -16,7 +16,8 @@
     <%= form.date_field :occurred_on, class: "form-control" %>
   </p>
 
-  <%= form.hidden_field :place_id, value: @place.id if @place %>
+  <!-- ✅ Ensure place_id is passed correctly -->
+  <%= form.hidden_field :place_id, value: @place.id if @place.present? %>
 
   <p>
     <%= form.submit "Save Entry", class: "btn btn-primary" %>
