@@ -6,22 +6,26 @@
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
   </head>
 
   <body>
     <div>
-      <%= flash["notice"] %>
+    <body>
+      <%= csrf_meta_tags %> <!-- ✅ Forces Rails to include CSRF tokens -->
+      <%= flash[:notice] %>
+      <%= flash[:alert] %>
     </div>
 
     <nav>
       <a href="/">Home</a>
 
       <% if session[:user_id] %>
-        <p>Welcome, <%= User.find_by(id: session[:user_id])&.first_name || "User" %>!</p>
-        <%= button_to "Logout", "/logout", method: :delete, data: { confirm: "Are you sure?" } %>
+        <p>Welcome, <%= User.find_by(id: session[:user_id])&.username || "User" %>!</p>
+
+        <%= link_to "Logout", logout_path, method: :delete, 
+             data: { turbo_method: :delete, confirm: "Are you sure you want to log out?" } %>
       <% else %>
         <a href="/login">Login</a>
         <a href="/users/new">Signup</a>
