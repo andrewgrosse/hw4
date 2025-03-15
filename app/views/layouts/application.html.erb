@@ -7,6 +7,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- ✅ Ensure Rails UJS & Turbo load correctly -->
+    <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+
     <!-- ✅ Include Bootstrap CSS -->
     <link 
       rel="stylesheet" 
@@ -22,7 +25,7 @@
 
   <body>
     <!-- ✅ Bootstrap Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a class="navbar-brand" href="/">Tacostagram</a>
 
@@ -41,14 +44,17 @@
                 <span class="navbar-text me-3">Welcome, <%= User.find_by(id: session[:user_id])&.username || "User" %>!</span>
               </li>
               <li class="nav-item">
-                <%= link_to "Logout", logout_path, method: :delete, class: "btn btn-outline-danger" %>
+                <%= link_to "Logout", logout_path, 
+                     method: :delete, 
+                     data: { turbo_method: :delete, confirm: "Are you sure you want to log out?" },
+                     class: "btn btn-outline-danger btn-sm ms-2" %>
               </li>
             <% else %>
               <li class="nav-item">
-                <%= link_to "Login", login_path, class: "btn btn-outline-primary me-2" %>
+                <%= link_to "Login", login_path, class: "btn btn-outline-primary btn-sm me-2" %>
               </li>
               <li class="nav-item">
-                <%= link_to "Signup", new_user_path, class: "btn btn-outline-success" %>
+                <%= link_to "Signup", new_user_path, class: "btn btn-outline-success btn-sm" %>
               </li>
             <% end %>
           </ul>

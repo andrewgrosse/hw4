@@ -6,8 +6,10 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title"><%= place.name %></h5>
-          <p class="card-text"><%= place.address %></p>
-          <%= link_to "View", place_path(place), class: "btn btn-primary" %>
+          <% if place.address.present? %>
+            <p class="card-text"><%= place.address %></p>
+          <% end %>
+          <%= link_to "View", place_path(place), class: "btn btn-primary btn-sm" %>
         </div>
       </div>
     </div>
