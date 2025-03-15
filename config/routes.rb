@@ -3,8 +3,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]
-  
-  # ✅ Nested entries under places
+
   resources :places, only: [:index, :new, :create, :show] do
     resources :entries, only: [:index, :new, :create, :edit, :update, :destroy]
   end
