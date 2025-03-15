@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Tacostagram</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,30 +7,64 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css", media: "all" %>
-    <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" %>
+    <!-- ✅ Include Bootstrap CSS -->
+    <link 
+      rel="stylesheet" 
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    >
+    
+    <!-- ✅ Include Bootstrap JavaScript -->
+    <script 
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      defer
+    ></script>
   </head>
 
   <body>
+    <!-- ✅ Bootstrap Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
         <a class="navbar-brand" href="/">Tacostagram</a>
-        <div class="collapse navbar-collapse">
-          <% if session[:user_id] %>
-            <span class="navbar-text">Welcome, <%= User.find_by(id: session[:user_id])&.username || "User" %>!</span>
-            <%= link_to "Logout", logout_path, method: :delete, class: "btn btn-outline-danger ms-2" %>
-          <% else %>
-            <%= link_to "Login", login_path, class: "btn btn-outline-primary ms-2" %>
-            <%= link_to "Signup", new_user_path, class: "btn btn-outline-success ms-2" %>
-          <% end %>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+
+            <% if session[:user_id] %>
+              <li class="nav-item">
+                <span class="navbar-text me-3">Welcome, <%= User.find_by(id: session[:user_id])&.username || "User" %>!</span>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Logout", logout_path, method: :delete, class: "btn btn-outline-danger" %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to "Login", login_path, class: "btn btn-outline-primary me-2" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Signup", new_user_path, class: "btn btn-outline-success" %>
+              </li>
+            <% end %>
+          </ul>
         </div>
       </div>
     </nav>
 
+    <!-- ✅ Bootstrap Container for Content -->
     <div class="container mt-4">
-      <%= flash[:notice] %>
-      <%= flash[:alert] %>
-      <%= yield %>
+      <% if flash[:notice] %>
+        <div class="alert alert-success"><%= flash[:notice] %></div>
+      <% elsif flash[:alert] %>
+        <div class="alert alert-danger"><%= flash[:alert] %></div>
+      <% end %>
+
+      <%= yield %>  <!-- ✅ Content goes here -->
     </div>
   </body>
 </html>
