@@ -1,0 +1,29 @@
+<h2>Edit Entry</h2>
+
+<!-- ✅ Form to edit an entry -->
+<%= form_with model: [@place, @entry], local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :occurred_on, "Date", class: "form-label" %>
+    <%= form.date_field :occurred_on, class: "form-control", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :image_url, "Image URL", class: "form-label" %>
+    <%= form.text_field :image_url, class: "form-control" %>
+  </div>
+
+  <%= form.submit "Update Entry", class: "btn btn-primary" %>
+<% end %>
+
+<!-- ✅ Back Button -->
+<%= link_to "Cancel", place_path(@place), class: "btn btn-secondary mt-3" %>

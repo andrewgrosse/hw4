@@ -4,7 +4,7 @@ class EntriesController < ApplicationController
   before_action :set_entry, only: [:edit, :update, :destroy]
 
   def index
-    @entries = Entry.where(place_id: @place.id, user_id: session[:user_id])
+    @entries = Entry.where(place_id: @place.id, user_id: session[:user_id]).order(created_at: :desc)
   end
 
   def new
@@ -17,11 +17,28 @@ class EntriesController < ApplicationController
     @entry.place_id = @place.id
 
     if @entry.save
-      redirect_to place_entries_path(@place), notice: "Entry added successfully!"
+      redirect_to place_path(@place), notice: "Entry added successfully!"
     else
       flash[:alert] = "Failed to add entry."
       render :new
     end
+  end
+
+  def edit
+  end
+
+  def update
+    if @entry.update(entry_params)
+      redirect_to place_path(@place), notice: "Entry updated successfully!"
+    else
+      flash[:alert] = "Failed to update entry."
+      render :edit
+    end
+  end
+
+  def destroy
+    @entry.destroy
+    redirect_to place_path(@place), notice: "Entry deleted successfully!"
   end
 
   private
@@ -31,10 +48,10 @@ class EntriesController < ApplicationController
   end
 
   def set_entry
-    @entry = Entry.find_by(id: params[:id], user_id: session[:user_id], place_id: @place.id)
+    @entry = Entry.find_by(id: params[:id], place_id: @place.id, user_id: session[:user_id])
     unless @entry
-      flash[:alert] = "You do not have permission to access this entry."
-      redirect_to place_entries_path(@place)
+      flash[:alert] = "You do not have permission to edit this entry."
+      redirect_to place_path(@place)
     end
   end
 
