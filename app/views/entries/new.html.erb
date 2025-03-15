@@ -1,25 +1,27 @@
 <h2>Add a New Entry</h2>
 
-<%= form_with model: @entry, url: entries_path, local: true do |form| %>
-  <p>
-    <%= form.label :title %>
-    <%= form.text_field :title, class: "form-control" %>
-  </p>
+<%= form_with model: @entry, url: place_entries_path(@place), local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control", required: true %>
+  </div>
 
-  <p>
-    <%= form.label :description %>
+  <div class="mb-3">
+    <%= form.label :image_url, "Image URL", class: "form-label" %>
+    <%= form.text_field :image_url, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %>
     <%= form.text_area :description, class: "form-control" %>
-  </p>
+  </div>
 
-  <p>
-    <%= form.label :occurred_on, "Date" %>
+  <div class="mb-3">
+    <%= form.label :occurred_on, "Date", class: "form-label" %>
     <%= form.date_field :occurred_on, class: "form-control" %>
-  </p>
+  </div>
 
-  <!-- ✅ Ensure place_id is passed correctly -->
-  <%= form.hidden_field :place_id, value: @place.id if @place.present? %>
-
-  <p>
-    <%= form.submit "Save Entry", class: "btn btn-primary" %>
-  </p>
+  <%= form.submit "Save Entry", class: "btn btn-primary" %>
 <% end %>
+
+<%= link_to "Cancel", place_entries_path(@place), class: "btn btn-secondary mt-3" %>

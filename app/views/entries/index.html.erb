@@ -1,17 +1,34 @@
-<h2 class="mb-4">My Entries</h2>
+<h2 class="mb-4"><%= @place.name %></h2>
 
+<!-- ✅ New Post Button -->
+<%= link_to "New Post", new_place_entry_path(@place), class: "btn btn-dark mb-3" %>
+
+<!-- ✅ Entries Grid (3 per row) -->
 <div class="row">
   <% @entries.each do |entry| %>
     <div class="col-md-4 mb-4">
       <div class="card">
+        <!-- ✅ Display Image -->
+        <% if entry.image_url.present? %>
+          <img src="<%= entry.image_url %>" class="card-img-top" alt="Entry Image">
+        <% else %>
+          <img src="https://via.placeholder.com/300" class="card-img-top" alt="Placeholder">
+        <% end %>
+
         <div class="card-body">
           <h5 class="card-title"><%= entry.title %></h5>
+          <p class="text-muted"><%= entry.occurred_on.strftime("%Y-%m-%d") %></p>
           <p class="card-text"><%= entry.description %></p>
-          <p class="text-muted"><%= entry.occurred_on.strftime("%B %d, %Y") %></p>
+
+          <!-- ✅ Edit & Delete Buttons -->
+          <%= link_to "Edit", edit_place_entry_path(@place, entry), class: "btn btn-warning btn-sm" %>
+          <%= link_to "Delete", place_entry_path(@place, entry), method: :delete, 
+               data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
         </div>
       </div>
     </div>
   <% end %>
 </div>
 
-<%= link_to "Add New Entry", new_entry_path, class: "btn btn-success mt-3" %>
+<!-- ✅ Back Button -->
+<%= link_to "Back to Places", places_path, class: "btn btn-secondary mt-3" %>

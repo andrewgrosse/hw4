@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
-  root "places#index"  # ✅ Home page
+  root "places#index"
 
   resources :users, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]
-  resources :places, only: [:index, :new, :create, :show]
-  resources :entries, only: [:new, :create, :edit, :update, :destroy]
+  
+  # ✅ Nested entries under places
+  resources :places, only: [:index, :new, :create, :show] do
+    resources :entries, only: [:index, :new, :create, :edit, :update, :destroy]
+  end
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"

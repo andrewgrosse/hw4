@@ -2,20 +2,31 @@
   <h1><%= @place.name %></h1>
 
   <h2>My Entries</h2>
-  <% @entries.each do |entry| %>
-    <h3><%= entry.title %></h3>
-    <h4><%= entry.occurred_on %></h4>
-    <p><%= entry.description %></p>
+
+  <% if @entries.any? %>
+    <div class="row">
+      <% @entries.each do |entry| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= entry.title %></h5>
+              <h6 class="text-muted"><%= entry.occurred_on.strftime("%Y-%m-%d") %></h6>
+              <p class="card-text"><%= entry.description %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>No entries yet. Add your first one below!</p>
   <% end %>
 
-  <p>
-    <a href="/entries/new?place_id=<%= @place.id %>">New Entry</a>
-  </p>
+  <!-- ✅ Corrected "New Entry" Link -->
+  <%= link_to "New Entry", new_place_entry_path(@place), class: "btn btn-dark mb-3" %>
 
-  <p>
-    <a href="/places">Back to All Places</a>
-  </p>
+  <!-- ✅ Back to All Places Button -->
+  <%= link_to "Back to All Places", places_path, class: "btn btn-secondary mt-3" %>
 <% else %>
-  <p>Error: This place does not exist or you do not have access.</p>
-  <a href="/places">Back to All Places</a>
+  <p class="text-danger">Error: This place does not exist or you do not have access.</p>
+  <%= link_to "Back to All Places", places_path, class: "btn btn-secondary" %>
 <% end %>
