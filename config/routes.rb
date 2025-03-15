@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  get "/", to: "places#index"
+  root "places#index"  # ✅ Home page
 
-  resources :places, only: [:index, :new, :create, :show]
   resources :users, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]
+  resources :places, only: [:index, :new, :create, :show]
+  resources :entries, only: [:new, :create, :edit, :update, :destroy]
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy", as: "logout"  # ✅ Correct logout route
+  delete "/logout", to: "sessions#destroy", as: "logout"
 end

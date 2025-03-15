@@ -6,17 +6,16 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
 
     if user && user.authenticate(params[:password])
-      session[:user_id] = user.id  # ✅ Stores user ID in session
-      redirect_to "/places"
+      session[:user_id] = user.id  # ✅ Store user ID in session
+      redirect_to places_path, notice: "Welcome, #{user.username}!"
     else
-      flash["notice"] = "Invalid email or password"
-      redirect_to "/login"
+      flash[:alert] = "Invalid email or password"
+      redirect_to login_path
     end
   end
 
   def destroy
-    session[:user_id] = nil  # ✅ Clears session on logout
-    flash["notice"] = "Logged out successfully."
-    redirect_to "/login"
+    session[:user_id] = nil  # ✅ Logout user
+    redirect_to login_path, notice: "Logged out successfully."
   end
 end

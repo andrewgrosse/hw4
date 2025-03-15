@@ -1,22 +1,24 @@
-<h1>New Entry</h1>
+<h2>Add a New Entry</h2>
 
-<form action="/entries" method="post">
-  <input type="hidden" name="place_id" value="<%= params["place_id"] %>">
-
+<%= form_with model: @entry, url: entries_path, local: true do |form| %>
   <p>
-    <label for="title_input">Title</label>
-    <input type="text" name="title" id="title_input">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
   </p>
 
   <p>
-    <label for="description_input">Description</label>
-    <input type="text" name="description" id="description_input">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: "form-control" %>
   </p>
 
   <p>
-    <label for="occurred_on_input">Occurred On</label>
-    <input type="date" name="occurred_on" id="occurred_on_input">
+    <%= form.label :occurred_on, "Date" %>
+    <%= form.date_field :occurred_on, class: "form-control" %>
   </p>
 
-  <button>Save</button>
-</form>
+  <%= form.hidden_field :place_id, value: @place.id if @place %>
+
+  <p>
+    <%= form.submit "Save Entry", class: "btn btn-primary" %>
+  </p>
+<% end %>
