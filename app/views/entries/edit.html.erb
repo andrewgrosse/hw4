@@ -17,10 +17,27 @@
     <%= form.text_area :description, class: "form-control", required: true %>
   </div>
 
+  <!-- ✅ Only Show URL Field If No Uploaded Image Exists -->
+  <% unless @entry.uploaded_image.attached? %>
+    <div class="mb-3">
+      <%= form.label :image_url, "Image URL (Legacy)", class: "form-label" %>
+      <%= form.text_field :image_url, class: "form-control" %>
+    </div>
+  <% end %>
+
   <div class="mb-3">
-    <%= form.label :image_url, "Image URL", class: "form-label" %>
-    <%= form.text_field :image_url, class: "form-control" %>
+    <%= form.label :uploaded_image, "Upload New Image", class: "form-label" %>
+    <%= form.file_field :uploaded_image, class: "form-control" %>
   </div>
+
+  <!-- ✅ Show Current Image -->
+  <% if @entry.uploaded_image.attached? %>
+    <p>Current Image:</p>
+    <%= image_tag @entry.uploaded_image, class: "img-fluid" %>
+  <% elsif @entry.image_url.present? %>
+    <p>Current Image (Legacy URL):</p>
+    <%= image_tag @entry.image_url, class: "img-fluid" %>
+  <% end %>
 
   <%= form.submit "Update Entry", class: "btn btn-primary" %>
 <% end %>
