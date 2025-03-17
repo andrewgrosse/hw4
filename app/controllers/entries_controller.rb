@@ -8,7 +8,6 @@ class EntriesController < ApplicationController
   end
 
   def show
-    # ✅ This action allows users to view a single entry
   end
 
   def new
@@ -64,6 +63,6 @@ class EntriesController < ApplicationController
   end
 
   def entry_params
-    params.require(:entry).permit(:title, :description, :occurred_on, :image_url)
+    params.require(:entry).permit(:title, :description, :occurred_on, :uploaded_image)
   end
 end

@@ -17,12 +17,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    if @entry
-      @entry.destroy
-      flash[:notice] = "Entry deleted successfully!"
-    else
-      flash[:alert] = "Entry not found or you do not have permission to delete this entry."
-    end
-    redirect_to place_path(@place)
+    session[:user_id] = nil  # ✅ Logs out user by clearing session
+    redirect_to login_path, notice: "Logged out successfully!"
   end
-  
+end

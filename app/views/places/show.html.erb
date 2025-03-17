@@ -8,10 +8,12 @@
   <% @entries.each do |entry| %>
     <div class="col-md-4 mb-4">
       <div class="card shadow-sm">
-        <!-- ✅ Display Image (Ensures Broken Links Don't Remove Images) -->
-        <%= image_tag(entry.image_url.presence || "https://via.placeholder.com/300", 
-                      class: "card-img-top", alt: "Entry Image", 
-                      onerror: "this.onerror=null;this.src='https://via.placeholder.com/300';") %>
+        <!-- ✅ Display Image (Active Storage) -->
+        <% if entry.uploaded_image.attached? %>
+          <%= image_tag entry.uploaded_image, class: "card-img-top", alt: "Entry Image" %>
+        <% else %>
+          <%= image_tag "https://via.placeholder.com/300", class: "card-img-top", alt: "Placeholder" %>
+        <% end %>
 
         <div class="card-body">
           <h5 class="card-title"><%= entry.title %></h5>
