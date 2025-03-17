@@ -12,12 +12,20 @@ class SessionsController < ApplicationController
       redirect_to places_path, notice: "Logged in successfully!"
     else
       flash[:alert] = "Invalid email or password."
-      render :new
+      redirect_to login_path
     end
   end
 
   def destroy
-    session[:user_id] = nil  # ✅ Logs out user by clearing session
+    Rails.logger.debug "🔥 SessionsController#destroy was called"
+    Rails.logger.debug "Current session: #{session.to_h}"
+  
+    session[:user_id] = nil  # ✅ Logs out user
+    reset_session            # ✅ Completely clears session
+    
+    Rails.logger.debug "After logout, session: #{session.to_h}"
+  
     redirect_to login_path, notice: "Logged out successfully!"
   end
+  
 end
