@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   resources :places, only: [:index, :new, :create, :show] do
-    resources :entries, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :entries, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   end
 
   get "/login", to: "sessions#new"
