@@ -39,14 +39,18 @@ class EntriesController < ApplicationController
   end
 
   def destroy
+    @entry = Entry.find_by(id: params[:id], place_id: @place.id, user_id: session[:user_id])
+    
     if @entry
       @entry.destroy
       flash[:notice] = "Entry deleted successfully!"
     else
-      flash[:alert] = "Entry not found."
+      flash[:alert] = "Entry not found or you do not have permission to delete this entry."
     end
+  
     redirect_to place_path(@place)
   end
+  
 
   private
 

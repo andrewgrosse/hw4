@@ -42,5 +42,11 @@
   <%= form.submit "Update Entry", class: "btn btn-primary" %>
 <% end %>
 
+<!-- ✅ Delete Button (Proper Form Setup) -->
+<%= form_with model: [@place, @entry], method: :delete, local: true, data: { turbo: false } do |form| %>
+  <%= form.submit "Delete Entry", data: { confirm: "Are you sure?" }, class: "btn btn-danger mt-3" %>
+<% end %>
+
+
 <!-- ✅ Back Button -->
 <%= link_to "Cancel", place_path(@place), class: "btn btn-secondary mt-3" %>
