@@ -20,12 +20,8 @@
           <p class="text-muted"><%= entry.occurred_on.strftime("%Y-%m-%d") %></p>
           <p class="card-text"><%= entry.description %></p>
 
-          <!-- ✅ Edit & Delete Buttons with Bootstrap Styling -->
-          <div class="d-flex justify-content-between">
-            <%= link_to "Edit", edit_place_entry_path(@place, entry), class: "btn btn-warning btn-sm" %>
-            <%= link_to "Delete", place_entry_path(@place, entry), method: :delete, 
-                 data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
-          </div>
+          <!-- ✅ Only Keep Edit Button -->
+          <%= link_to "Edit", edit_place_entry_path(@place, entry), class: "btn btn-warning btn-sm" %>
         </div>
       </div>
     </div>
