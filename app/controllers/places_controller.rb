@@ -2,7 +2,7 @@ class PlacesController < ApplicationController
   before_action :require_login
 
   def index
-    @places = Place.where(user_id: session[:user_id]).order(created_at: :desc)  # ✅ Show only logged-in user's places
+    @places = Place.where(user_id: session[:user_id]).order(created_at: :desc)  # Show only logged-in user's places
   end
 
   def new
@@ -25,7 +25,7 @@ class PlacesController < ApplicationController
     @place = Place.find_by(id: params[:id], user_id: session[:user_id])
 
     if @place
-      @entries = Entry.where(place_id: @place.id, user_id: session[:user_id]).order(created_at: :desc) # ✅ Ensures entries always load
+      @entries = Entry.where(place_id: @place.id, user_id: session[:user_id]).order(created_at: :desc) # Ensures entries always load
     else
       flash[:alert] = "You do not have access to this place."
       redirect_to places_path

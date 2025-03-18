@@ -1,6 +1,6 @@
 <h2>Edit Entry</h2>
 
-<!-- ✅ Form to edit an entry -->
+<!-- Edit -->
 <%= form_with model: [@place, @entry], local: true do |form| %>
   <div class="mb-3">
     <%= form.label :title, class: "form-label" %>
@@ -17,7 +17,7 @@
     <%= form.text_area :description, class: "form-control", required: true %>
   </div>
 
-  <!-- ✅ Only Show URL Field If No Uploaded Image Exists -->
+  <!-- Only Show URL Field If No Uploaded Image -->
   <% unless @entry.uploaded_image.attached? %>
     <div class="mb-3">
       <%= form.label :image_url, "Image URL (Legacy)", class: "form-label" %>
@@ -30,7 +30,7 @@
     <%= form.file_field :uploaded_image, class: "form-control" %>
   </div>
 
-  <!-- ✅ Show Current Image -->
+  <!-- Show Current Image -->
   <% if @entry.uploaded_image.attached? %>
     <p>Current Image:</p>
     <%= image_tag @entry.uploaded_image, class: "img-fluid" %>
@@ -42,11 +42,11 @@
   <%= form.submit "Update Entry", class: "btn btn-primary" %>
 <% end %>
 
-<!-- ✅ Delete Button (Proper Form Setup) -->
+<!-- Delete Button -->
 <%= form_with model: [@place, @entry], method: :delete, local: true, data: { turbo: false } do |form| %>
   <%= form.submit "Delete Entry", data: { confirm: "Are you sure?" }, class: "btn btn-danger mt-3" %>
 <% end %>
 
 
-<!-- ✅ Back Button -->
+<!-- Back Button -->
 <%= link_to "Cancel", place_path(@place), class: "btn btn-secondary mt-3" %>

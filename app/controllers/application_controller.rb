@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   private
 
   def require_login
-    # ✅ Allows access to login and signup pages without causing infinite redirects
+    # Allows access to login and signup pages without causing infinite redirects
     unless session[:user_id] || request.path == login_path || request.path == new_user_path
       flash[:alert] = "You must be logged in."
       redirect_to login_path

@@ -1,14 +1,14 @@
 <h2 class="mb-4"><%= @place.name %></h2>
 
-<!-- ✅ New Post Button -->
+<!-- New Post Button -->
 <%= link_to "New Post", new_place_entry_path(@place), class: "btn btn-dark mb-3" %>
 
-<!-- ✅ Entries Grid (3 per row) -->
+<!-- Entries Grid (3 per row) -->
 <div class="row">
   <% @entries.each do |entry| %>
     <div class="col-md-4 mb-4">
       <div class="card shadow-sm">
-        <!-- ✅ Display Image (Fix for Broken URLs) -->
+        <!-- Display Image (Fix for Broken URLs) -->
         <%= image_tag(entry.image_url.presence || "https://via.placeholder.com/300", 
                       class: "card-img-top", alt: "Entry Image", onerror: "this.onerror=null;this.src='https://via.placeholder.com/300';") %>
 
@@ -17,7 +17,7 @@
           <p class="text-muted"><%= entry.occurred_on.strftime("%Y-%m-%d") %></p>
           <p class="card-text"><%= entry.description %></p>
 
-          <!-- ✅ Edit & Delete Buttons with Bootstrap -->
+          <!-- Edit & Delete Buttons with Bootstrap -->
           <div class="d-flex justify-content-between">
             <%= link_to "Edit", edit_place_entry_path(@place, entry), class: "btn btn-warning btn-sm" %>
             <%= link_to "Delete", place_entry_path(@place, entry), method: :delete, 

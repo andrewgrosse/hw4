@@ -1,14 +1,14 @@
 <h2 class="mb-4"><%= @place.name %></h2>
 
-<!-- ✅ New Post Button -->
+<!-- New Post Button -->
 <%= link_to "New Post", new_place_entry_path(@place), class: "btn btn-dark mb-3" %>
 
-<!-- ✅ Entries Grid (3 per row) -->
+<!-- Entries Grid -->
 <div class="row">
   <% @entries.each do |entry| %>
     <div class="col-md-4 mb-4">
       <div class="card shadow-sm">
-        <!-- ✅ Display Image (Active Storage) -->
+        <!-- Display Image -->
         <% if entry.uploaded_image.attached? %>
           <%= image_tag entry.uploaded_image, class: "card-img-top", alt: "Entry Image" %>
         <% else %>
@@ -20,7 +20,7 @@
           <p class="text-muted"><%= entry.occurred_on.strftime("%Y-%m-%d") %></p>
           <p class="card-text"><%= entry.description %></p>
 
-          <!-- ✅ Only Keep Edit Button -->
+          <!-- Edit Button -->
           <%= link_to "Edit", edit_place_entry_path(@place, entry), class: "btn btn-warning btn-sm" %>
         </div>
       </div>
@@ -28,5 +28,5 @@
   <% end %>
 </div>
 
-<!-- ✅ Back Button -->
+<!-- Back Button -->
 <%= link_to "Back to Places", places_path, class: "btn btn-secondary mt-3" %>

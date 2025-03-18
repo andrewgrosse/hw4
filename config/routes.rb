@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  root "places#index"  # ✅ Set homepage to places#index
+  root "places#index"  # Set homepage to places#index
   
   resources :places do
-    resources :entries  # ✅ Nested entries under places
+    resources :entries  # Nested entries under places
   end
 
   resources :users, only: [:new, :create]
@@ -10,5 +10,5 @@ Rails.application.routes.draw do
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"  # ✅ Ensure logout is DELETE request
+  delete "/logout", to: "sessions#destroy"  
 end
